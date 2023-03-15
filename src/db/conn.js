@@ -7,5 +7,15 @@ const sequelize = new Sequelize(
     {
         port: process.env.DB_PORT,
         host: process.env.DB_HOST,
+        dialect: 'mysql'
     }
 )
+
+try{
+    sequelize.authenticate()
+    console.log('Connection Sucefully DataBase')
+}catch(error){
+    console.log(error)
+}
+
+module.exports = sequelize

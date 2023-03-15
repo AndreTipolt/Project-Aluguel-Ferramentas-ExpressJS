@@ -3,9 +3,13 @@ const express = require('express')
 const handlebars = require('express-handlebars')
 
 const app = express()
+const conn = require('./db/conn')
 
-app.engine('handlebars', handlebars.engine())
+const path = require('path')
+
+app.engine('handlebars', handlebars.engine({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
+app.set('views', path.join(__dirname, 'views/') )
 
 app.use(express.urlencoded({
     extended: true
@@ -15,8 +19,12 @@ app.use(express.json())
 
 app.use(express.static('public'))
 
-app.get('/', (req, res) =>{ // Home
 
-})
+const client = require('./models/Client')
+const tool = require('./models/Tool')
 
-app.listen(process.env.PORT)
+const clientRouter = require('./routes/clientRouter')
+
+app.use('/client', clientRouter)
+
+conn.sync().then(app.listen(process.env.PORT))
