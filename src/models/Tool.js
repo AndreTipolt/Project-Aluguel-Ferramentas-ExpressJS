@@ -1,10 +1,8 @@
 const conn = require('../db/conn')
 
 const { DataTypes } = require('sequelize')
-const client = require('./Client')
 
-
-const tool = conn.define('tool', {
+const Tool = conn.define('tool', {
     idTool:{
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -25,10 +23,4 @@ const tool = conn.define('tool', {
     }
 })
 
-// tool.belongsToMany(client, {
-//     through: 'rent_tool',
-//     as: 'client',
-//     foreignKey: 'idTool'
-// })
-
-module.exports = tool
+module.exports = Tool

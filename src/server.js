@@ -22,6 +22,7 @@ app.use(express.static('public'))
 
 const client = require('./models/Client')
 const tool = require('./models/Tool')
+const rent_tool = require('./models/Rent_Tool')
 
 const clientRouter = require('./routes/clientRouter')
 

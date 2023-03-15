@@ -24,10 +24,5 @@ const client = conn.define('client', {
     }
 })
 
-client.belongsToMany(tool, {
-    through: 'rent_tool',
-    as: 'tool',
-    foreignKey: 'idClient'
-})
 
 module.exports = client
