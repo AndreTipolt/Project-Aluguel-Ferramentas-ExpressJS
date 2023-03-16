@@ -4,10 +4,13 @@ class ClientController{
     static async home(req, res){
         
     }
+    static getCreate(req, res){
+        res.render('createClient')
+    }
 
     static async create(req, res){
         const { name, phoneNumber, adress } = req.body
-
+        
         if(!name || !phoneNumber || !adress){
             return res.status(400).json({ msg: 'Fill all fields'})
         }

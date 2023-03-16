@@ -1,4 +1,4 @@
-const { DataTypes, INTEGER } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const conn = require("../db/conn");
 const client = require("./Client");
 const Tool = require("./Tool");

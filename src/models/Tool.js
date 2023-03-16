@@ -15,11 +15,10 @@ const Tool = conn.define('tool', {
     },
     available: {
         type: DataTypes.BOOLEAN,
-        required: true
+        defaultValue: true
     },
     quantity: {
         type: DataTypes.INTEGER,
-        required: true,
     }
 })
 

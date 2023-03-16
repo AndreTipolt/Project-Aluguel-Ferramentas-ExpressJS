@@ -25,7 +25,9 @@ const tool = require('./models/Tool')
 const rent_tool = require('./models/Rent_Tool')
 
 const clientRouter = require('./routes/clientRouter')
+const toolRouter = require('./routes/toolRouter')
 
 app.use('/client', clientRouter)
+app.use('/tool', toolRouter)
 
 conn.sync().then(app.listen(process.env.PORT))
