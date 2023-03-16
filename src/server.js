@@ -26,8 +26,14 @@ const rent_tool = require('./models/Rent_Tool')
 
 const clientRouter = require('./routes/clientRouter')
 const toolRouter = require('./routes/toolRouter')
+const rentToolRouter = require('./routes/rentToolRouter')
 
 app.use('/client', clientRouter)
 app.use('/tool', toolRouter)
+app.use('/rentTool', rentToolRouter)
+
+app.get('/', (req, res) =>{
+    return res.redirect('/rentTool/')
+})
 
 conn.sync().then(app.listen(process.env.PORT))

@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dateformat": "^5.0.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.2",
+    "moment": "^2.29.4",
     "mysql2": "^3.2.0",
     "sequelize": "^6.29.3"
   },

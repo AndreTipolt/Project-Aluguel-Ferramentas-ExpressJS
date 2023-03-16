@@ -7,6 +7,22 @@
     <title>Home</title>
 </head>
 <body>
-    oiiii
+    <h1>Ferramentas alocadas</h1>
+    <div class="table-rents">
+        <table border="1">
+            <tr>
+                <th>Ferramenta</th>
+                <th>Cliente</th>
+                <th>Devolução</th>
+            </tr>
+            {{#each tableToolsRented }}
+                <tr>
+                    <td>{{ this.toolName }}</td>
+                    <td>{{ this.clientName }}</td>
+                    <td>{{ this.dateDevolution }}</td>
+                </tr>
+            {{/each}}
+        </table>
+    </div>
 </body>
 </html>
