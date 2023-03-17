@@ -6,3 +6,11 @@ main{
     width: 40%;
     height: 30%;
 }
+
+tr th, td{
+    text-align: center;
+}
+
+.expiredDevolutionTools tr{
+    color: red;
+}

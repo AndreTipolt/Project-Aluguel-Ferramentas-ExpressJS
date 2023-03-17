@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <h1 style="text-align: center; margin: 10px 0 25px 0;" class="display-3">Ferramentas alocadas</h1>
+    <h1 style="text-align: center; margin: 10px 0 25px 0;" class="display-3">Ferramentas Alocadas</h1>
     <main>
         <div class="table-rent">
             <table class="table table-striped">
@@ -19,18 +19,27 @@
                         <th scope="col">Ferramenta</th>
                         <th scope="col">Cliente</th>
                         <th scope="col">Devolução</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">No prazo</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each expiredDevolutionTools}}
                         <tr>
-                            <td>{{ this.toolNameExpirated }}</td>
-                            <td>{{ this.clientNameExpirated }}</td>
-                            <td>{{ this.dateDevolutionExpirate }}</td>
-                            <td>Atrasado</td>
+                            <td style="color: red;">{{ this.toolNameExpirated }}</td>
+                            <td style="color: red;">{{ this.clientNameExpirated }}</td>
+                            <td style="color: red;">{{ this.dateDevolutionExpirate }}</td>
+                            <td style="text-align: center; background-color: inherit;">
+                                <img src="/img/notDeliveredImg.png" width="20px">
+                            </td>
+                            <td style="color: red;">
+                                <form action="/rentTool/deleteRent/{{ this.idRent }}/{{ this.idTool }}" method="POST">
+                                    <button style="border: none; background-color: inherit;">Entregar</button>
+                                </form>
+                            </td>
                         </tr>
                     {{/each}}
+                    
 
                     {{#each tableToolsRented }}
                     {{#if this}}
@@ -38,7 +47,16 @@
                             <td>{{ this.toolName }}</td>
                             <td>{{ this.clientName }}</td>
                             <td>{{ this.dateDevolution }}</td>
-                            <td>No prazo</td>
+                            <td style="text-align: center; background-color: inherit;">
+                                <div class="delivered-btn-form">
+                                    <img src="/img/deliveredImg.png" width="20px">
+                                </div>
+                            </td>
+                            <td style="color: red;">
+                                <form action="/rentTool/deleteRent/{{ this.idRent }}/{{ this.idTool }}" method="POST">
+                                    <button style="border: none; background-color: inherit;">Entregar</button>
+                                </form>
+                            </td>
                         </tr>
                         {{/if}}
                     {{/each}}
@@ -46,7 +64,6 @@
             </table>
         </div>  
     </main>
-    
     
 </body>
 

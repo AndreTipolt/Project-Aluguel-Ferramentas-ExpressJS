@@ -8,12 +8,12 @@ class ToolController{
         const { name, quantity } = req.body
 
         if(!name || !quantity){
-            return res.render('createTool', { msg: 'Preencha todos os campos' })
+            return res.render('createTool', { msgError: 'Preencha todos os campos' })
         }
 
-        const newTool = await Tool.create({ name, quantity })
+        await Tool.create({ name, quantity })
 
-        return res.status(201).json({ newTool })
+        return res.status(201).render('createTool', { msgSucess: 'Ferramenta Cadastrada com Sucesso' })
     }
 }
 

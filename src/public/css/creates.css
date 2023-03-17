@@ -1,0 +1,40 @@
+main{
+    display: flex;
+    justify-content: center;
+}
+.form{
+    width: 40%;
+    height: 30%;
+}
+
+.btn-submit{
+    margin-top: 4px;
+    background-color: #2b2a2a;
+    border: 0;
+}
+.btn-submit:hover{
+    background-color: rgb(253, 153, 3);
+}
+
+.input-form{
+    margin-bottom: 10px;
+}
+
+.msg-form-error{
+    color: red;
+}
+
+.msg-form-sucess{
+    color: rgb(40, 211, 40);
+}
+
+.date-input-form{
+    padding: 4px;
+    border-radius: 8px;
+    width: 100%;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    padding: 6px 12px 6px 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

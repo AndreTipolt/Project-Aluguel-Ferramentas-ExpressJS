@@ -2,67 +2,42 @@ const RentTool = require('../models/Rent_Tool')
 const Client = require('../models/Client')
 const Tool = require('../models/Tool')
 
-const {
-    Op
-} = require('sequelize')
-
 const moment = require('moment')
+const bringClientTool = require('../middlewares/bringClientTool')
 
 class RentTollController {
     static async getCreate(req, res) {
 
-        const tools = await Tool.findAll({
-            raw: true,
-            where: {
-                quantity: {
-                    [Op.gt]: 0
-                }
-            }
-        })
-        const clients = await Client.findAll({
-            raw: true
-        })
+        const { clients, tools } = await bringClientTool()
 
-        return res.render('createRent', {
-            tools,
-            clients
-        })
+        return res.render('createRent', { tools, clients })
     }
     static async create(req, res) {
-        const {
-            idTool,
-            idClient,
-            devolutionDate
-        } = req.body
+
+        const { clients, tools } = await bringClientTool()
+
+        const { idTool, idClient, devolutionDate } = req.body
 
         if (!idTool || !idClient || !devolutionDate) {
-            return res.status(400).json({
-                msg: 'Preencha todos os campos'
-            })
+            return res.status(400).render('createRent',{ msgError: 'Preencha todos os campos', tools, clients })
         }
 
         const verifyDate = moment(devolutionDate)
 
         if (verifyDate.isBefore(moment())) { // 
-            return res.status(400).json({
-                msg: 'Data Inválida'
-            })
+            return res.status(400).render('createRent',{ msgError: 'Data Inválida', tools, clients })
         }
 
         const tool = await Tool.findByPk(idTool)
 
         if (!tool) {
-            return res.status(400).json({
-                msg: 'Ferramenta Inválida'
-            })
+            return res.status(400).render('createRent',{ msgError: 'Ferramenta Inválida', tools, clients })
         }
 
         const client = await Client.findByPk(idClient)
 
         if (!client) {
-            return res.status(400).json({
-                msg: 'Cliente Inválido'
-            })
+            return res.status(400).render('createRent',{ msgError: 'Cliente Inválido', tools, clients })
         }
 
         const newRent = await RentTool.create({
@@ -78,13 +53,17 @@ class RentTollController {
             tool.save()
 
         } catch (e) {
-            return res.status(400).json({
-                msg: 'O produto nao esta mais disponivel'
+            return res.status(400).render('createRent',{ 
+                msgError: 'O produto nao esta mais disponível', 
+                tools, 
+                clients 
             })
         }
 
-        return res.status(200).json({
-            newRent
+        return res.status(200).render('createRent',{ 
+            msgSucess: 'Ferramenta alugada com sucesso', 
+            tools, 
+            clients 
         })
     }
 
@@ -109,6 +88,8 @@ class RentTollController {
 
             const verifyDateDevolution = moment(toolRented.devolutionDate)
 
+            const idRent = toolRented.id
+            const idTool = toolRented.toolIdTool
             const toolName = toolRented['tool.name']
             const clientName = toolRented['client.name']
             const dateDevolution = toolRented.devolutionDate
@@ -117,12 +98,16 @@ class RentTollController {
 
             if (verifyDateDevolution.isAfter(moment())) {
                 return {
+                    idRent,
+                    idTool,
                     toolName,
                     clientName,
                     dateDevolution: formattedDateDevolution
                 }
             }
             expiredDevolutionTools = [{
+                idRent,
+                idTool,
                 toolNameExpirated: toolName,
                 clientNameExpirated: clientName,
                 dateDevolutionExpirate: formattedDateDevolution
@@ -133,6 +118,31 @@ class RentTollController {
             tableToolsRented,
             expiredDevolutionTools
         })
+    }
+
+    static async deleteRent(req, res){
+        const { idRent, idTool } = req.params
+
+        const rentExists = await RentTool.findOne({ id: idRent })
+
+        if(!rentExists){
+            return res.status(400).redirect('/')
+        }
+
+        const rent = await RentTool.destroy({ where: { id: idRent } })
+            
+            const tool = await Tool.findOne({ idTool })
+
+            if(!tool){
+                return res.status(400).redirect('/')
+            }
+
+            tool.quantity += 1
+
+            tool.save()
+
+            return res.status(200).redirect('/')
+
     }
 }
 
