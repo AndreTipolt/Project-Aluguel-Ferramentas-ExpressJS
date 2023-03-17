@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+}
+
+
+header{
+    width: 100%;
+    background-color: #2b2a2a;
+    height: 100px;
+    color: #fff;
+    display: flex;
+    border-bottom: 3px solid rgb(253, 153, 3);
+}
+
+.header-img{
+    height: 100%;
+}
+.header-img img{
+    height: 100%;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+}
+.nav-items ul{
+    margin: 0;
+    list-style: none;
+    display: flex;
+}
+
+.nav-items li{
+    padding-right: 13px;
+    font-size: 0.9em;
+}
+
+.nav-items a{
+    text-decoration: none;
+    color: inherit;
+}
+
+main{
+    margin-top: 10px;
+}

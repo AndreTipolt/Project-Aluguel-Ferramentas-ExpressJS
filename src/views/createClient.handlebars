@@ -1,17 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrate</title>
+    <link rel="stylesheet" href="/css/createClient.css">
+    <title>Cadastro Cliente</title>
 </head>
+
 <body>
-    <form method="post" action="/client/create">
-        <input type="text" placeholder="name" name="name">
-        <input type="text" placeholder="numero" name="phoneNumber">
-        <input type="text" placeholder="endrecco" name="adress">
-        <input type="submit" value="envia">
-    </form>
+    <h1 style="text-align: center; margin: 10px 0 25px 0;" class="display-3">Cadastrar Cliente</h1>
+    <main>
+        <div class="form-client">
+
+            {{#if msgError}}
+
+                <label for="messageError" class="msg-form-error">{{ msgError }}</label>
+
+            {{/if}}
+
+            {{#if msgSucess }}
+
+                <label for="messageSucess" class="msg-form-sucess">{{ msgSucess }}</label>
+            {{/if}}
+
+            <form action="/client/create" method="POST">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nome</label>
+                    <input type="text" class="form-control input-form" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Nome do Cliente" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Telefone</label>
+                    <input type="tel" class="form-control input-form" id="exampleInputPassword1" placeholder="(11) 73213-4378" name="phoneNumber">
+
+                    <label for="exampleInputPassword1">Endereço</label>
+                    <input type="tel" class="form-control input-form" id="exampleInputPassword1" placeholder="Rua Joinville, 721" name="adress">
+
+                </div>
+                <button type="submit" class="btn btn-primary btn-submit">Cadastrar</button>
+            </form>
+        </div>
+    </main>
 </body>
+
 </html>

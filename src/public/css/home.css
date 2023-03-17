@@ -1,0 +1,8 @@
+main{
+    display: flex;
+    justify-content: center;
+}
+.table-rent{
+    width: 40%;
+    height: 30%;
+}

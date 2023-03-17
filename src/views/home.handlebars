@@ -1,28 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
     <title>Home</title>
 </head>
+
 <body>
-    <h1>Ferramentas alocadas</h1>
-    <div class="table-rents">
-        <table border="1">
-            <tr>
-                <th>Ferramenta</th>
-                <th>Cliente</th>
-                <th>Devolução</th>
-            </tr>
-            {{#each tableToolsRented }}
-                <tr>
-                    <td>{{ this.toolName }}</td>
-                    <td>{{ this.clientName }}</td>
-                    <td>{{ this.dateDevolution }}</td>
-                </tr>
-            {{/each}}
-        </table>
-    </div>
+    <h1 style="text-align: center; margin: 10px 0 25px 0;" class="display-3">Ferramentas alocadas</h1>
+    <main>
+        <div class="table-rent">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Ferramenta</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Devolução</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each expiredDevolutionTools}}
+                        <tr>
+                            <td>{{ this.toolNameExpirated }}</td>
+                            <td>{{ this.clientNameExpirated }}</td>
+                            <td>{{ this.dateDevolutionExpirate }}</td>
+                            <td>Atrasado</td>
+                        </tr>
+                    {{/each}}
+
+                    {{#each tableToolsRented }}
+                    {{#if this}}
+                        <tr>
+                            <td>{{ this.toolName }}</td>
+                            <td>{{ this.clientName }}</td>
+                            <td>{{ this.dateDevolution }}</td>
+                            <td>No prazo</td>
+                        </tr>
+                        {{/if}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>  
+    </main>
+    
+    
 </body>
+
 </html>

@@ -12,12 +12,12 @@ class ClientController{
         const { name, phoneNumber, adress } = req.body
         
         if(!name || !phoneNumber || !adress){
-            return res.status(400).json({ msg: 'Fill all fields'})
+            return res.status(400).render('createClient',{ msgError: 'Preencha todos os Campos'})
         }
 
-        const newClient = await client.create({ name, phoneNumber, adress })
+        await client.create({ name, phoneNumber, adress })
 
-        return res.status(201).json(newClient)
+        return res.status(201).render('createClient', { msgSucess: 'Cliente Cadastrado com sucesso' })
     }
 }
 
